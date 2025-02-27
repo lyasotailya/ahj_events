@@ -1,34 +1,36 @@
-import img_goblin from "C:\\Users\\erdya\\OneDrive\\Рабочий стол\\gnoms\\src\\img\\goblin.png";
+import img_goblin from "../img/goblin.png";
+// import { CellHandler } from "./CellHandler.js";
 
-class CellHandler {
-  constructor(game) {
-    this.game = game;
-    this.cells = document.querySelectorAll(".cell");
-    this.init();
-  }
+// class CellHandler {
+//   constructor(game) {
+//     this.game = game;
+//     this.cells = document.querySelectorAll(".cell");
+//     this.propHandleClick = this.handleClick.bind(this);
+//     this.init();
+//   }
 
-  init() {
-    this.cells.forEach((cell) => {
-      cell.addEventListener("click", (event) => this.handleClick(event));
-    });
-  }
+//   init() {
+//     this.cells.forEach((cell) => {
+//       cell.addEventListener("click", this.propHandleClick);
+//     });
+//   }
 
-  handleClick(event) {
-    const img = event.currentTarget.querySelector("img");
-    if (img && img.style.display !== "none") {
-      img.style.display = "none";
-      event.currentTarget.classList.remove("cell-with-goblin");
-      this.game.incrementDefeated();
-    }
-  }
-}
+//   handleClick(event) {
+//     const img = event.currentTarget.querySelector("img");
+//     if (img && img.style.display !== "none") {
+//       img.style.display = "none";
+//       event.currentTarget.classList.remove("cell-with-goblin");
+//       this.game.incrementDefeated();
+//     }
+//   }
+// }
 
 export class Game {
-  constructor() {
+  constructor(cellHandler) {
     this.missed = 0;
     this.defeated = 0;
     this.cells = document.querySelectorAll(".cell");
-    this.cellHandler = new CellHandler(this);
+    this.cellHandler = cellHandler;
     this.img_goblin = img_goblin;
     this.init();
   }
@@ -79,12 +81,14 @@ export class Game {
 
     if (this.missed >= 5) {
       alert("Игра закончена! Вы пропустили 5 гномов.");
-      window.location.reload();
+      this.missed = 0;
+      this.cellHandler.defeated = 0;
+      document.getElementById("defeated").textContent = 0;
     }
   }
 
-  incrementDefeated() {
-    this.defeated++;
-    document.getElementById("defeated").textContent = this.defeated;
-  }
+  // incrementDefeated() {
+  //   this.defeated++;
+  //   document.getElementById("defeated").textContent = this.defeated;
+  // }
 }
