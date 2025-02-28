@@ -1,4 +1,5 @@
 import img_goblin from "../img/goblin.png";
+
 // import { CellHandler } from "./CellHandler.js";
 
 // class CellHandler {
